@@ -1,0 +1,23 @@
+import socket
+
+def port_scanner(target_ip, ports):
+    print(f"Scanning target: {target_ip}")
+    
+    for port in ports:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        socket.setdefaulttimeout(1)
+        
+        result = sock.connect_ex((target_ip, port))
+        if result == 0:
+            print(f"Port {port} is open")
+        else:
+            print(f"Port {port} is closed")
+        sock.close()
+
+if __name__ == "__main__":
+    target_ip = input("Enter target IP address: ")
+    
+    # Steam-related ports (TCP/UDP)
+    steam_ports = [27015, 27016, 27017, 27036, 27037, 27050]
+    
+    port_scanner(target_ip, steam_ports)
